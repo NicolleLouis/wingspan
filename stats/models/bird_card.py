@@ -8,7 +8,7 @@ class BirdCard(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(
         null=True,
-        max_length=24
+        max_length=50
     )
     points = models.IntegerField(
         null=False,
@@ -17,10 +17,10 @@ class BirdCard(models.Model):
     can_live_in_forest = models.BooleanField(
         default=False
     )
-    can_live_in_swamp = models.BooleanField(
+    can_live_in_plain = models.BooleanField(
         default=False
     )
-    can_live_in_plain = models.BooleanField(
+    can_live_in_swamp = models.BooleanField(
         default=False
     )
     price = models.IntegerField(
@@ -37,6 +37,11 @@ class BirdCard(models.Model):
         max_length=13,
         choices=Nest.choices,
         default=None,
+    )
+    bird_power = models.ForeignKey(
+        'BirdPower',
+        on_delete=models.PROTECT,
+        null=True,
     )
 
     def __str__(self):
@@ -56,3 +61,5 @@ class BirdCardAdmin(admin.ModelAdmin):
     search_fields = (
         'name',
     )
+
+    ordering = ['name']

@@ -32,11 +32,6 @@ class Bird(models.Model):
         default=0,
         verbose_name='Cartes Stockées'
     )
-    eggs_hatched = models.IntegerField(
-        null=True,
-        default=0,
-        verbose_name='Oeuf Stockés'
-    )
     position_in_habitat = models.IntegerField(
         null=False,
         default=0,
@@ -54,7 +49,6 @@ class BirdAdmin(admin.ModelAdmin):
         'habitat',
         'food_stored',
         'cards_stored',
-        'eggs_hatched',
         'position_in_habitat',
     )
 

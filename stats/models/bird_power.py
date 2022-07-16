@@ -1,3 +1,5 @@
+import pdb
+
 from django.db import models
 from django.contrib import admin
 
@@ -9,7 +11,7 @@ class BirdPower(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(
         null=True,
-        max_length=24
+        max_length=100
     )
     color = models.CharField(
         max_length=13,
@@ -26,7 +28,9 @@ class BirdPower(models.Model):
     )
 
     def __str__(self):
-        return f"{self.color} {self.type} {self.name}"
+        color = getattr(Color, f'{self.color}_HUMAN')
+        type = getattr(PowerType, f'{self.type}_HUMAN')
+        return f"{color} - {type} - {self.name}"
 
 
 @admin.register(BirdPower)
@@ -37,3 +41,9 @@ class BirdPowerAdmin(admin.ModelAdmin):
         'type',
         'is_collaborative',
     )
+
+    ordering = [
+        'color',
+        'type',
+        'name',
+    ]

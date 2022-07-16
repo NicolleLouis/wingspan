@@ -4,7 +4,7 @@ class PowerType:
     FOOD = 'FOOD'
     FOOD_HUMAN = 'Nourriture'
     REPRODUCTION = 'REPRODUCTION'
-    REPRODUCTION_HUMAN = 'Reproduction'
+    REPRODUCTION_HUMAN = 'Glissez des cartes'
     EGG = 'EGG'
     EGG_HUMAN = 'Oeuf'
     CARD_DRAW = 'CARD_DRAW'
