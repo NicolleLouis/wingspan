@@ -20,15 +20,19 @@ class BirdPower(models.Model):
         max_length=13,
         choices=PowerType.choices,
         default=None,
+        null=True
     )
     is_collaborative = models.BooleanField(
         default=False
     )
 
     def __str__(self):
-        color = getattr(Color, f'{self.color}_HUMAN')
-        type = getattr(PowerType, f'{self.type}_HUMAN')
-        return f"{color} - {type} - {self.name}"
+        if self.type is not None:
+            color = getattr(Color, f'{self.color}_HUMAN')
+            type = getattr(PowerType, f'{self.type}_HUMAN')
+            return f"{color} - {type} - {self.name}"
+        else:
+            return 'None'
 
 
 @admin.register(BirdPower)

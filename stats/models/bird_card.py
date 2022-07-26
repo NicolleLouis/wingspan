@@ -77,6 +77,7 @@ class BirdCardAdmin(admin.ModelAdmin):
 
     search_fields = (
         'name',
+        'latin_name',
     )
 
     ordering = ['name']

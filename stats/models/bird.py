@@ -60,6 +60,8 @@ class BirdAdmin(admin.ModelAdmin):
 class BirdInline(admin.TabularInline):
     model = Bird
 
+    extra = 0
+
     autocomplete_fields = (
         'bird_card',
     )
