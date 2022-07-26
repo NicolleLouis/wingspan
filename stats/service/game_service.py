@@ -15,3 +15,17 @@ class GameService:
             )
         )
         return ', '.join(player_names)
+
+    @staticmethod
+    def compute_winner(game: Game) -> None:
+        from stats.service.player_game_service import PlayerGameService
+
+        for player_game in game.player_games.all():
+            PlayerGameService.compute_score(player_game)
+
+        winner = max(
+            game.player_games.all(),
+            key=lambda player_game: player_game.score
+        )
+        game.winner = winner
+        game.save()

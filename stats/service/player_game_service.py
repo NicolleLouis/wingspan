@@ -10,8 +10,9 @@ if TYPE_CHECKING:
 
 class PlayerGameService:
     @staticmethod
-    def get_score(player_game: PlayerGame) -> int:
+    def compute_score(player_game: PlayerGame) -> None:
         score = player_game.bonus_point + player_game.round_point + player_game.total_eggs
         for bird in player_game.birds.all():
             score += BirdService.get_score(bird)
-        return score
+        player_game.score = score
+        player_game.save()

@@ -54,7 +54,7 @@ class PlayerGame(models.Model):
     )
 
     def __str__(self):
-        return f'{self.game}: {self.user} ({self.score})'
+        return f'{self.user}: {self.score} pts'
 
 
 @admin.register(PlayerGame)
@@ -78,8 +78,7 @@ class PlayerGameAdmin(admin.ModelAdmin):
         from stats.service.player_game_service import PlayerGameService
 
         for player_game in queryset:
-            player_game.score = PlayerGameService.get_score(player_game)
-            player_game.save()
+            PlayerGameService.compute_score(player_game)
 
     actions = (
         compute_score,
