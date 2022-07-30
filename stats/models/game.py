@@ -12,7 +12,7 @@ class Game(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     winner = models.ForeignKey(
         'PlayerGame',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         null=True,
         related_name='winner',
     )
@@ -41,6 +41,13 @@ class GameAdmin(admin.ModelAdmin):
         'get_player_name',
         'winner',
     )
+
+    readonly_fields = (
+        'winner',
+    )
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
     def get_date(self, instance):
         return instance.created_at.strftime(date_format)

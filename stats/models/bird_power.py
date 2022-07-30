@@ -49,3 +49,6 @@ class BirdPowerAdmin(admin.ModelAdmin):
         'type',
         'name',
     ]
+
+    def has_delete_permission(self, request, obj=None):
+        return False

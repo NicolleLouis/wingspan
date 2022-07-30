@@ -55,7 +55,7 @@ class BirdCard(models.Model):
     )
     bird_power = models.ForeignKey(
         'BirdPower',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         null=True,
     )
 
@@ -81,3 +81,6 @@ class BirdCardAdmin(admin.ModelAdmin):
     )
 
     ordering = ['name']
+
+    def has_delete_permission(self, request, obj=None):
+        return False

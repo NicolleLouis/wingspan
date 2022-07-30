@@ -8,19 +8,21 @@ class Bird(models.Model):
     id = models.AutoField(primary_key=True)
     bird_card = models.ForeignKey(
         'BirdCard',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         null=False,
     )
     player_game = models.ForeignKey(
         'PlayerGame',
         on_delete=models.CASCADE,
-        null=False,
+        null=True,
         related_name='birds'
     )
     habitat = models.CharField(
         max_length=6,
         choices=Habitat.choices,
         default=None,
+        null=True,
+        blank=True
     )
     food_stored = models.IntegerField(
         null=True,
@@ -33,8 +35,8 @@ class Bird(models.Model):
         verbose_name='Cartes Stockées'
     )
     position_in_habitat = models.IntegerField(
-        null=False,
-        default=0,
+        null=True,
+        default=1,
         verbose_name='Position dans l"habitat'
     )
 
@@ -55,6 +57,23 @@ class BirdAdmin(admin.ModelAdmin):
     autocomplete_fields = (
         'bird_card',
     )
+
+    readonly_fields = (
+        'player_game',
+        'habitat',
+        'position_in_habitat',
+    )
+
+    fieldsets = (
+        (
+            '', {
+                'fields': ('bird_card', 'food_stored', 'cards_stored')
+            }
+        ),
+    )
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class BirdInline(admin.TabularInline):

@@ -21,7 +21,7 @@ class GameService:
         from stats.service.player_game_service import PlayerGameService
 
         for player_game in game.player_games.all():
-            PlayerGameService.compute_score(player_game)
+            PlayerGameService(player_game).compute_score()
 
         winner = max(
             game.player_games.all(),

@@ -1,11 +1,9 @@
 from django.core.management.base import BaseCommand
 
-from stats.models import PlayerGame
-from stats.service.player_game_service import PlayerGameService
+from stats.models import Game
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        player_game = PlayerGame.objects.all()[0]
-        print(player_game)
-        PlayerGameService.get_score(player_game)
+        player_game = Game.objects.filter(winner=None)
+        player_game.delete()
