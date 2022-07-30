@@ -155,10 +155,10 @@ class PlayerGame(models.Model):
         null=False,
         verbose_name='Total points'
     )
-    engine_size = models.IntegerField(
-        default=0,
-        null=False,
-        verbose_name='Taille du moteur'
+    engine = models.ForeignKey(
+        'Engine',
+        on_delete=models.CASCADE,
+        null=True,
     )
 
     def __str__(self):
@@ -175,7 +175,7 @@ class PlayerGameAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         'score',
-        'engine_size',
+        'engine',
     )
 
     def has_delete_permission(self, request, obj=None):
@@ -183,7 +183,7 @@ class PlayerGameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Compute Data')
     def compute_data(self, request, queryset):
-        from stats.service.player_game_service import PlayerGameService
+        from stats.service.player_game.player_game import PlayerGameService
 
         for player_game in queryset:
             PlayerGameService(player_game).compute_data()

@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from stats.constants.color import Color
 from stats.constants.habitat import Habitat
-from stats.service.bird_card_service import BirdService
+from stats.service.bird_service import BirdService
 
 if TYPE_CHECKING:
     from stats.models import PlayerGame, Bird
@@ -14,25 +15,24 @@ class PlayerGameService:
         self.player_game = player_game
 
     def compute_data(self) -> None:
+        from stats.service.player_game.engine import EngineService
+
         self.update_birds_info()
         self.compute_score()
-        self.compute_engine_size()
+        EngineService(self.player_game).compute_engine()
 
     def compute_score(self) -> None:
         player_game = self.player_game
         score = player_game.bonus_point + player_game.round_point + player_game.total_eggs
         for bird in player_game.birds.all():
-            score += BirdService.get_score(bird)
+            score += BirdService(bird).get_score()
         player_game.score = score
         player_game.save()
 
-    def compute_engine_size(self) -> None:
-        pass
-
     def update_bird_info(self, bird: Bird, habitat: str, position_in_habitat: int) -> None:
         if bird is not None:
-            BirdService.update_bird_info(
-                bird, self.player_game, habitat, position_in_habitat
+            BirdService(bird).update_bird_info(
+                self.player_game, habitat, position_in_habitat
             )
 
     def update_birds_info(self) -> None:

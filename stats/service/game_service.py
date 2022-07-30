@@ -18,7 +18,7 @@ class GameService:
 
     @staticmethod
     def compute_winner(game: Game) -> None:
-        from stats.service.player_game_service import PlayerGameService
+        from stats.service.player_game.player_game import PlayerGameService
 
         for player_game in game.player_games.all():
             PlayerGameService(player_game).compute_score()

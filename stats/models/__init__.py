@@ -4,3 +4,4 @@ from .user import User
 from .player_game import PlayerGame
 from .game import Game
 from .bird import Bird
+from .engine import Engine
