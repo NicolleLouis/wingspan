@@ -56,16 +56,16 @@ class PlayerGameService:
             player_game.plain_1, Habitat.PLAIN, 1
         )
         self.update_bird_info(
-            player_game.plain_2, Habitat.FOREST, 2
+            player_game.plain_2, Habitat.PLAIN, 2
         )
         self.update_bird_info(
-            player_game.plain_3, Habitat.FOREST, 3
+            player_game.plain_3, Habitat.PLAIN, 3
         )
         self.update_bird_info(
-            player_game.plain_4, Habitat.FOREST, 4
+            player_game.plain_4, Habitat.PLAIN, 4
         )
         self.update_bird_info(
-            player_game.plain_5, Habitat.FOREST, 5
+            player_game.plain_5, Habitat.PLAIN, 5
         )
         self.update_bird_info(
             player_game.swamp_1, Habitat.SWAMP, 1
