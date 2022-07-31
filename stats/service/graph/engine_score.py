@@ -1,32 +1,17 @@
 import matplotlib.pyplot as plt
 
 from stats.constants.habitat import Habitat
+from stats.service.graph.graph import GraphService
 
 
-class EngineGraphService:
+class EngineGraphService(GraphService):
     filename = 'stats/files/graph/engine.jpg'
-
-    def __init__(self, display: bool):
-        from stats.repositories.player_games import PlayerGameRepository
-
-        self.display = display
-        self.player_games = PlayerGameRepository.all()
-        self.fig, self.ax = plt.subplots()
-
-        self.compute_data()
-        self.add_options()
-        self.result()
 
     def add_options(self):
         plt.ylabel('Score')
         plt.xlabel('Taille du moteur')
         plt.legend(loc='upper left')
         plt.title('Score/Taille du moteur')
-
-    def result(self):
-        plt.savefig(self.filename)
-        if self.display:
-            plt.show()
 
     def compute_data(self):
         forest_engines = self.player_games.filter(engine__habitat=Habitat.FOREST)

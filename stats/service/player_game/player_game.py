@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from stats.constants.color import Color
 from stats.constants.habitat import Habitat
 from stats.service.bird_service import BirdService
 

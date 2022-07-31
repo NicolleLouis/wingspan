@@ -3,21 +3,11 @@ import random
 import matplotlib.pyplot as plt
 
 from stats.constants.habitat import Habitat
+from stats.service.graph.graph import GraphService
 
 
-class BirdNumberHabitatGraphService:
+class BirdNumberHabitatGraphService(GraphService):
     filename = 'stats/files/graph/bird_number_habitat.jpg'
-
-    def __init__(self, display: bool):
-        from stats.repositories.player_games import PlayerGameRepository
-
-        self.display = display
-        self.player_games = PlayerGameRepository.all()
-        self.fig, self.ax = plt.subplots()
-
-        self.compute_data()
-        self.add_options()
-        self.result()
 
     @staticmethod
     def add_options():
@@ -25,11 +15,6 @@ class BirdNumberHabitatGraphService:
         plt.ylabel("Nombre total d'oiseau")
         plt.legend(loc='upper left')
         plt.title("Score/Nombre d'oiseau")
-
-    def result(self):
-        plt.savefig(self.filename)
-        if self.display:
-            plt.show()
 
     def compute_data(self):
         self.draw_games(Habitat.FOREST, 'green', 'Forêt')
@@ -47,5 +32,5 @@ class BirdNumberHabitatGraphService:
 
     @staticmethod
     def approximate_score(score):
-        epsilon = random.randint(-10, 10)/100
+        epsilon = random.randint(-10, 10) / 100
         return score + epsilon
