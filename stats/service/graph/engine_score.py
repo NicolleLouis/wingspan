@@ -36,7 +36,6 @@ class EngineGraphService:
         swamp_engines = self.player_games.filter(engine__habitat=Habitat.SWAMP)
         self.draw_games(swamp_engines, 'blue', 'Marais')
 
-
     def draw_games(self, player_games, color, label):
         scores = []
         engine_sizes = []

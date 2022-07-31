@@ -25,16 +25,19 @@ class EngineService:
 
     def compute_best_engine(self) -> (Habitat, int):
         forest_engine_size = self.forest_repartition.browns
-        forest_engine_size += self.plain_repartition.blue_pinks
-        forest_engine_size += self.swamp_repartition.blue_pinks
+        forest_engine_size += self.forest_repartition.all
+        forest_engine_size += self.plain_repartition.others
+        forest_engine_size += self.swamp_repartition.others
 
         plain_engine_size = self.plain_repartition.browns
-        plain_engine_size += self.forest_repartition.blue_pinks
-        plain_engine_size += self.swamp_repartition.blue_pinks
+        plain_engine_size += self.plain_repartition.all
+        plain_engine_size += self.forest_repartition.others
+        plain_engine_size += self.swamp_repartition.others
 
         swamp_engine_size = self.swamp_repartition.browns
-        swamp_engine_size += self.forest_repartition.blue_pinks
-        swamp_engine_size += self.plain_repartition.blue_pinks
+        swamp_engine_size += self.swamp_repartition.all
+        swamp_engine_size += self.forest_repartition.others
+        swamp_engine_size += self.plain_repartition.others
 
         if forest_engine_size >= max(plain_engine_size, swamp_engine_size):
             return self.create_engine(Habitat.FOREST, forest_engine_size)
@@ -50,15 +53,15 @@ class EngineService:
 
     def compute_habitat_power_color_repartition(self, habitat) -> Repartition:
         browns = 0
-        blue_pinks = 0
+        others = 0
         birds = self.player_game.birds.filter(habitat=habitat)
         for bird in birds:
             color = BirdService(bird).get_power_color()
             if color == Color.BROWN:
                 browns += 1
-            elif color in [Color.BLUE, Color.PINK]:
-                blue_pinks += 1
-        return Repartition(browns, blue_pinks)
+            elif color in [Color.BLUE, Color.PINK, Color.WHITE]:
+                others += 1
+        return Repartition(browns, others, len(birds))
 
     @staticmethod
     def create_engine(habitat: Habitat, engine_size: int) -> Engine:
@@ -71,6 +74,7 @@ class EngineService:
 
 
 class Repartition:
-    def __init__(self, browns: int, blue_pinks: int):
+    def __init__(self, browns: int, others: int, all: int):
         self.browns = browns
-        self.blue_pinks = blue_pinks
+        self.others = others
+        self.all = all

@@ -1,9 +1,8 @@
 from django.core.management.base import BaseCommand
 
-from stats.models import Game
+from stats.service.graph.score_bird_number_habitat import BirdNumberHabitatGraphService
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        player_game = Game.objects.filter(winner=None)
-        player_game.delete()
+        BirdNumberHabitatGraphService(True)
