@@ -11,8 +11,8 @@ class BirdNumberHabitatGraphService(GraphService):
 
     @staticmethod
     def add_options():
-        plt.xlabel('Score')
-        plt.ylabel("Nombre total d'oiseau")
+        plt.ylabel('Score')
+        plt.xlabel("Nombre total d'oiseau")
         plt.legend(loc='upper left')
         plt.title("Score/Nombre d'oiseau")
 
@@ -28,7 +28,7 @@ class BirdNumberHabitatGraphService(GraphService):
             scores.append(self.approximate_score(player_game.score))
             birds = player_game.birds.filter(habitat=habitat)
             bird_numbers.append(len(birds))
-        self.ax.scatter(scores, bird_numbers, color=color, label=label)
+        self.ax.scatter(bird_numbers, scores, color=color, label=label)
 
     @staticmethod
     def approximate_score(score):

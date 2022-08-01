@@ -8,8 +8,8 @@ class BirdNumberGraphService(GraphService):
 
     @staticmethod
     def add_options():
-        plt.xlabel('Score')
-        plt.ylabel("Nombre total d'oiseau")
+        plt.ylabel('Score')
+        plt.xlabel("Nombre total d'oiseau")
         plt.title("Score/Nombre d'oiseau")
 
     def compute_data(self):
@@ -18,4 +18,4 @@ class BirdNumberGraphService(GraphService):
         for player_game in self.player_games:
             scores.append(player_game.score)
             bird_number.append(len(player_game.birds.all()))
-        self.ax.scatter(scores, bird_number)
+        self.ax.scatter(bird_number, scores)
