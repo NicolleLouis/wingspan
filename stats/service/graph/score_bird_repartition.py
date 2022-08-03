@@ -1,12 +1,8 @@
-import matplotlib.pyplot as plt
-
 from stats.constants.habitat import Habitat
 from stats.service.graph.graph import GraphService
 
 
 class BirdRepartitionGraphService(GraphService):
-    filename = 'stats/files/graph/bird_repartition.jpg'
-    
     def __init__(self, **kwargs):
         self.labels = []
         self.forests = []
@@ -15,20 +11,9 @@ class BirdRepartitionGraphService(GraphService):
         self.bottom_swamp = []
         super().__init__(**kwargs)
 
-    def add_options(self):
-        plt.ylabel('Partie')
-        plt.xlabel("Répartition au sein des habitats")
-        plt.title("Répartition au sein des 10 meilleures parties")
-
-        self.ax.legend()
-
     @staticmethod
     def label_from_player_game(player_game):
         return f"{player_game.score} ({player_game.user})"
-
-    @staticmethod
-    def number_of_bird_in_habitat(player_game, habitat):
-        return len(player_game.birds.filter(habitat=habitat))
 
     def sort_data(self):
         self.player_games = sorted(
@@ -40,12 +25,16 @@ class BirdRepartitionGraphService(GraphService):
         if len(self.player_games) > 10:
             self.player_games = self.player_games[-10:]
 
+    @staticmethod
+    def score_by_habitat(player_game, habitat):
+        raise NotImplementedError
+
     def generate_dataset(self):
         for player_game in self.player_games:
             self.labels.append(self.label_from_player_game(player_game))
-            self.forests.append(self.number_of_bird_in_habitat(player_game, Habitat.FOREST))
-            self.plains.append(self.number_of_bird_in_habitat(player_game, Habitat.PLAIN))
-            self.swamps.append(self.number_of_bird_in_habitat(player_game, Habitat.SWAMP))
+            self.forests.append(self.score_by_habitat(player_game, Habitat.FOREST))
+            self.plains.append(self.score_by_habitat(player_game, Habitat.PLAIN))
+            self.swamps.append(self.score_by_habitat(player_game, Habitat.SWAMP))
 
         for index, forest in enumerate(self.forests):
             self.bottom_swamp.append(forest + self.plains[index])

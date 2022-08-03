@@ -5,6 +5,10 @@ from typing import TYPE_CHECKING, List, Optional
 from stats.service.graph.engine_score import EngineGraphService
 from stats.service.graph.score_bird_number import BirdNumberGraphService
 from stats.service.graph.score_bird_number_habitat import BirdNumberHabitatGraphService
+from stats.service.graph.score_bird_repartition_bird_number import BirdNumberRepartitionGraphService
+from stats.service.graph.score_bird_repartition_bird_score import BirdScoreRepartitionGraphService
+from stats.service.graph.score_bird_repartition_bird_score_total import BirdScoreTotalRepartitionGraphService
+from stats.service.graph.score_power_repartition import PowerRepartitionGraphService
 
 if TYPE_CHECKING:
     from stats.models import PlayerGame
@@ -15,6 +19,10 @@ class AllGraph:
         EngineGraphService,
         BirdNumberGraphService,
         BirdNumberHabitatGraphService,
+        BirdNumberRepartitionGraphService,
+        BirdScoreTotalRepartitionGraphService,
+        BirdScoreRepartitionGraphService,
+        PowerRepartitionGraphService,
     ]
 
     def __init__(
